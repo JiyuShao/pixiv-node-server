@@ -1,0 +1,9 @@
+{
+	"port": 8080,
+	"bodyLimit": "100kb",
+  "corsHeaders": ["Link"],
+  "pixiv": {
+    "client_id": "bYGKuGVw91e0NMfPGp44euvGt59s",
+    "client_secret": "HP3RmkgAmEGro0gn1x9ioawQE8WMfvLXDz3ZqxpK"
+  }
+}
