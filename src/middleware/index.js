@@ -7,7 +7,8 @@ export default ({ config }) => {
   // load pixiv
   api.use((req, res, next) => {
     res.locals.pixiv = new Pixiv({
-      ...config.pixiv
+      ...config.pixiv,
+      authorization: req.headers.authorization
     });
     next();
 	});
