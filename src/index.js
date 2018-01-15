@@ -3,6 +3,7 @@ import express from 'express';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import expressValidator from 'express-validator';
+import errorHandler from 'errorhandler';
 import lusca from "lusca";
 
 import middleware from './middleware';
@@ -37,7 +38,7 @@ app.get('/', (req, res) => {
 });
 
 /**
- * load api config
+ * load router config
  */
 app.use('/', api({
   config
@@ -46,9 +47,23 @@ app.use('/', api({
 /**
  * Handle 404
  */
-app.get("*", function(req, res){
-  res.json({status: "failed", message: "Request doesn't match any route"});
+app.get("*", (req, res, next) => {
+  next("Request doesn't match any route");
 });
+
+/**
+ * Error Handler. Provides full stack - remove for production
+ */
+if (config.NODE_ENV === 'development') {
+  app.use(errorHandler());
+} else if (config.NODE_ENV === 'production') {
+  app.use((err, req, res, next) => {
+    res.json({
+      status: 'failed',
+      message: err
+    });
+  });
+}
 
 app.server.listen(process.env.PORT || config.port, () => {
   console.log(`Started on port ${app.server.address().port}`);

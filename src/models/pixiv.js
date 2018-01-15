@@ -1,4 +1,5 @@
 import request from 'request-promise';
+import responseDataFormat from '../lib/response-data-format';
 
 class Pixiv {
   constructor(params = {
@@ -22,8 +23,8 @@ class Pixiv {
         'username': '',
         'password': '',
         'grant_type': 'password',
-        'client_id': 'bYGKuGVw91e0NMfPGp44euvGt59s',
-        'client_secret': 'HP3RmkgAmEGro0gn1x9ioawQE8WMfvLXDz3ZqxpK'
+        'client_id': 'KzEZED7aC0vird8jWyHM38mXjNTY',
+        'client_secret': 'W9JZoJe00qPvJsiyCGT3CCtC6ZUtdpKpzMbNlUGP'
       }
     };
 
@@ -50,24 +51,42 @@ class Pixiv {
     this.loginOption.form = { ...this.loginOption.form,
       ...params
     };
-    return request(this.loginOption);
+    return request(this.loginOption).then((data) => {
+      return responseDataFormat(JSON.parse(data).response);
+    });
+  }
+
+  refreshToken(params = {
+    refresh_token: ''
+  }) {
+    this.loginOption.form = { ...this.loginOption.form,
+      ...{
+        grant_type: 'refresh_token'
+      },
+      ...params
+    };
+    return request(this.loginOption).then((data) => {
+      return responseDataFormat(JSON.parse(data).response);
+    });;
   }
 
   getPage(path = '') {
     return request({
       method: 'GET',
-      url: `https://app-api.pixiv.net/${path}`,
+      url: `https://app-api.pixiv.net${path}`,
       headers: {
         'cache-control': 'no-cache',
         authorization: this.authorization
       }
-    });
+    }).then((data) => {
+      return responseDataFormat(data);
+    });;
   }
 
   getImage(path = '') {
     return request({ ...this.imageOption,
       ...{
-        url: 'https://i.pximg.net/' + path
+        url: `https://i.pximg.net${path}`
       }
     });
   }
