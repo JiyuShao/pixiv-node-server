@@ -65,6 +65,16 @@ export default () => {
   });
 
   /**
+   * /image/* to get pixiv image, the pixiv image api will have some header limition
+   */
+  api.get('/image/*', async function (req, res, next) {
+    let imageRealUrl = '/' + req.originalUrl.split('/').slice(2).join('/');
+    let data = await res.locals.pixiv.getImage(imageRealUrl);
+    res.set('Content-Type', 'image/png');
+    res.send(data);
+  });
+
+  /**
    * get user detail,
    * get params: user_id=9158367
    */
@@ -82,21 +92,14 @@ export default () => {
       });
   });
 
-  /**
-   * /image/* to get pixiv image, the pixiv image api will have some header limition
-   */
-  api.get('/image/*', async function (req, res, next) {
-    let imageRealUrl = '/' + req.originalUrl.split('/').slice(2).join('/');
-    let data = await res.locals.pixiv.getImage(imageRealUrl);
-    res.set('Content-Type', 'image/png');
-    res.send(data);
-  });
-
   // get spotlight articles
   api.get('/spotlight/articles', function (req, res, next) {
     let data = res.locals.pixiv.getPage('/v1/spotlight/articles?filter=for_ios', true)
       .then((data) => {
-        res.json(data);
+        res.json({
+          status: 'success',
+          response: data
+        });
       })
       .catch((error) => {
         next(error);

@@ -4,7 +4,8 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import expressValidator from 'express-validator';
 import errorHandler from 'errorhandler';
-import lusca from "lusca";
+import lusca from 'lusca';
+import cors from 'cors';
 
 import middleware from './middleware';
 import api from './api';
@@ -23,6 +24,7 @@ app.use(bodyParser.json({ //parse json input data
 app.use(expressValidator()); //for req validation
 app.use(lusca.xframe("SAMEORIGIN"));
 app.use(lusca.xssProtection(true));
+app.use(cors({credentials: true, origin: true})); //enable all cors for now
 
 // internal middleware
 app.use(middleware({
