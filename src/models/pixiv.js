@@ -80,7 +80,7 @@ class Pixiv {
       }
     }).then((data) => {
       return responseDataFormat(data);
-    });;
+    });
   }
 
   getImage(path = '') {

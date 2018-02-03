@@ -92,9 +92,23 @@ export default () => {
       });
   });
 
-  // get spotlight articles
-  api.get('/spotlight/articles', function (req, res, next) {
-    let data = res.locals.pixiv.getPage('/v1/spotlight/articles?filter=for_ios', true)
+  // // get spotlight articles
+  // api.get('/v1/spotlight/articles', function (req, res, next) {
+  //   res.locals.pixiv.getPage('/v1/spotlight/articles?filter=for_ios')
+  //     .then((data) => {
+  //       res.json({
+  //         status: 'success',
+  //         response: data
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       next(error);
+  //     });
+  // });
+
+  // pixiv v1 original get api
+  api.get(/^\/(v1|v2)\/.*/, function(req, res, next){
+    res.locals.pixiv.getPage(req.originalUrl)
       .then((data) => {
         res.json({
           status: 'success',
