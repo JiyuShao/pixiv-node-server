@@ -30,7 +30,7 @@ function formatData(obj, params = {
   })
 
   if (typeof obj.next_url !== 'undefined') {
-    obj.next_url = _.replace(obj.next_url, 'https://app-api.pixiv.net', `${params.domain}/page`);
+    obj.next_url = _.replace(obj.next_url, 'https://app-api.pixiv.net', `${params.domain}`);
   }
   return obj;
 }
