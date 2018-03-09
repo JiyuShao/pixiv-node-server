@@ -8,7 +8,7 @@
     "dev": "nodemon -w src --exec \"babel-node src\"",
     "inspect": "nodemon --inspect -w src --exec \"babel-node src\"",
     "build": "babel src -s -D -d dist",
-    "prestart": "npm run -s build",
+    "serve": "node dist/index.js",
     "test": "eslint src"
   },
   "eslintConfig": {
