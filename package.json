@@ -5,9 +5,9 @@
   "main": "dist",
   "scripts": {
     "start": "npm run dev",
-    "dev": "nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
-    "inspect": "nodemon --inspect -w src --exec \"babel-node src --presets es2015,stage-0\"",
-    "build": "babel src -s -D -d dist --presets es2015,stage-0",
+    "dev": "nodemon -w src --exec \"babel-node src\"",
+    "inspect": "nodemon --inspect -w src --exec \"babel-node src\"",
+    "build": "babel src -s -D -d dist",
     "prestart": "npm run -s build",
     "test": "eslint src"
   },
@@ -32,6 +32,7 @@
   "author": "Jiyu Shao",
   "license": "MIT",
   "dependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0",
     "body-parser": "^1.13.3",
     "compression": "^1.5.2",
     "cors": "^2.8.4",
