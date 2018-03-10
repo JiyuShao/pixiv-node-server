@@ -1,7 +1,7 @@
 {
   "NODE_ENV": "production",
   "port": 8080,
-  "domain": "http://localhost:8080",
+  "domain": "http://pixiv-api.jiyushao.me",
 	"bodyLimit": "100kb",
   "corsHeaders": ["Link"],
   "pixiv": {
