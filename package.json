@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/sjy0w0/pixiv-node-server"
+    "url": "https://github.com/sjy0w0/pixiv-node-server"
   },
   "author": "Jiyu Shao",
   "license": "MIT",
